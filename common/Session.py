@@ -7,7 +7,7 @@ class Session:
         print("get_connection() 메서드 호출 - mysql에 접속됩니다.")
 
         return pymysql.connect(
-            host = '192.168.0.%',
+            host = '192.168.0.172',
             user = 'ksbl',
             password = '1234',
             db = 'miniproject',

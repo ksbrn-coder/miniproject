@@ -109,41 +109,95 @@ body, p, a, div, span, button {
 
 /* 버튼들을 감싸는 영역 */
 .button-group {
-    margin-top: 20px;            /* 화면 맨 위에서 살짝 띄우기 */
-    margin-bottom: 3.5rem;       /* 아래 환영 메시지와의 간격 */
     display: flex;
     justify-content: center;
+    align-items: center;    /* 핵심: 버튼들을 한 줄(수평)로 정렬 */
     gap: 1.5rem;
+    margin-top: 20px;
+    margin-bottom: 3.5rem;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+}
+/* 2. 공통 버튼 스타일 */
+.hero-btn {
+    display: inline-flex;    /* 내부 텍스트 중앙 정렬을 위해 변경 */
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    padding: 0 28px;         /* 상하 패딩은 높이(height)로 조절 */
+    min-width: 140px;        /* 버튼이 너무 좁아지지 않게 조정 */
+    height: 50px;            /* 높이를 고정하여 모든 버튼 크기 통일 */
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 50px;     /* 완벽한 타원형 */
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    color: white;
+    background: rgba(255, 255, 255, 0.05); /* 살짝 투명 배경 추가 */
+    backdrop-filter: blur(5px);
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+/* 3. 마우스를 올렸을 때 효과 */
+.hero-btn:hover {
+    background-color: white;
+    color: black;
+    transform: translateY(-3px); /* 위로 살짝 떠오르는 느낌 */
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
 }
 
 /* 공통 버튼 스타일 */
 .hero-btn {
+/* 내부 글자 크기에 맞춰지도록 설정 */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
     text-decoration: none;
-    padding: 10px 20px;
+    padding: 12px 28px;      /* 상하 12px, 좌우 28px로 크기 조절 */
+    min-width: 120px;        /* 버튼이 너무 작아지지 않게 최소 너비 설정 */
+    height: 45px;            /* 높이를 고정해서 사각형이 되는 걸 방지 */
+
     font-size: 1.1rem;
     font-weight: 600;
-    border-radius: 20px; /* 둥근 버튼 모양 */
+
+    /* 완전한 타원형을 위해 높이의 절반 이상을 줍니다 */
+    border-radius: 50px;
+
     transition: all 0.3s ease;
     border: 2px solid rgba(255, 255, 255, 0.6);
     color: white;
+    background: transparent;
     backdrop-filter: blur(5px);
+    cursor: pointer;
+    white-space: nowrap;     /* 글자가 두 줄로 넘어가는 것 방지 */
 }
 
 /* 커서를 올렸을 때의 스타일 */
 .hero-btn:hover {
-    cursor: pointer;          /* 커서를 손가락 모양(클릭 아이콘)으로 변경 */
-    background-color: white;  /* 배경색을 흰색으로 채움 */
-    color: black;             /* 글자색을 검은색으로 변경 */
+    background-color: white;
+    color: black;
+    transform: translateY(-3px); /* 위로 살짝 떠오르는 느낌 */
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+}
+
+.button-group .hero-btn {
+    width: auto;             /* 내용물 크기만큼만 차지 */
+    min-width: 120px;        /* 너무 작아지지 않게 */
+    flex-shrink: 0;          /* 화면이 좁아져도 버튼 형태 유지 */
 }
 
 /* 2. 제목1 부분 설정 (Black Han Sans) */
 .welcome-title {
-    font-family: 'Black Han Sans', sans-serif; /* 제목만 특별한 폰트로 */
-    font-size: 5rem; /* 크기를 더 키워서 눈에 띄게 */
-    letter-spacing: -2px; /* 자간을 좁혀서 더 꽉 찬 느낌을 줌 */
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 5rem;
+    letter-spacing: -2px;
     color: #ffffff;
-    text-shadow: 4px 4px 15px rgba(0, 0, 0, 0.7); /* 그림자를 강하게 주어 배경과 분리 */
+    text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0,0,0,0.5);
     margin-bottom: 1.5rem;
+    text-align: center;
 }
 
 .result-header {
@@ -217,6 +271,13 @@ body, p, a, div, span, button {
     color: white;
 }
 
+/* 마이페이지/회원가입 카드 내 버튼 특수 설정 */
+.register-card .hero-btn {
+    width: 100%;             /* 카드 안에서는 꽉 차게 */
+    margin-top: 10px;
+    display: flex;           /* block 대신 flex 유지 */
+}
+
 .register-title {
     font-family: 'Black Han Sans', sans-serif;
     text-align: center;
@@ -242,19 +303,27 @@ body, p, a, div, span, button {
 }
 
 .input-group input {
-    width: 100%;            /* 부모 너비에 꽉 차게 */
-    box-sizing: border-box; /* 패딩을 포함해 너비 계산 (중요!) */
+    width: 100%;
     padding: 14px;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.1); /* 너무 어둡지 않게 조정 */
     border: 1px solid rgba(255, 255, 255, 0.2);
-    color: white;
+    color: #ffffff !important;           /* 텍스트 흰색 강제 (가독성) */
     border-radius: 12px;
     font-family: 'Pretendard', sans-serif;
+    font-size: 1rem;
 }
 
 .input-group input:focus {
     border-color: white;
     background: rgba(0, 0, 0, 0.4);
+}
+
+/* 읽기 전용(마이페이지 정보 확인용) 인풋 스타일 */
+.input-group input[readonly] {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.8) !important;
+    cursor: default;
 }
 
 /* 가입 버튼 스타일 */
@@ -276,4 +345,83 @@ body, p, a, div, span, button {
     color: white;
     text-decoration: none;
     font-weight: 600;
+}
+
+/*------------------- 회원 삭제 관련 -------------------*/
+
+/* 컨테이너 스타일: 다른 카드들(register-card, result-card)과 통일 */
+.delete-container {
+    width: 100%;
+    max-width: 420px;
+    margin: 40px auto;
+    padding: 50px 40px;
+    background: rgba(255, 255, 255, 0.1); /* 반투명 배경 */
+    backdrop-filter: blur(15px);         /* 유리 효과 */
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    color: white;
+    text-align: center;
+    position: relative;
+    z-index: 2; /* overlay보다 위에 오도록 설정 */
+}
+
+/* 안내 문구 스타일 */
+.delete-container p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    font-family: 'Pretendard', sans-serif;
+}
+
+/* 탈퇴 버튼 스타일: hero-btn의 스타일을 베이스로 하되 위험색(빨간색) 강조 */
+.btn-delete {
+    display: inline-block;
+    text-decoration: none;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 25px; /* 조금 더 둥글게 */
+    transition: all 0.3s ease;
+
+    /* 테두리와 글자색을 살짝 붉은 빛이 도는 흰색으로 */
+    border: 2px solid rgba(255, 77, 77, 0.6);
+    color: white;
+    background: rgba(255, 77, 77, 0.2); /* 배경에 아주 옅은 빨간색 */
+    backdrop-filter: blur(5px);
+    cursor: pointer;
+}
+
+/* 마우스를 올렸을 때 (Hover): 강렬한 빨간색으로 변경 */
+.btn-delete:hover {
+    background-color: #ff4d4d;
+    border-color: #ff4d4d;
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255, 77, 77, 0.4);
+}
+
+/* 버튼을 클릭하고 있을 때 (Active) */
+.btn-delete:active {
+    transform: translateY(-1px);
+}
+
+.register-title a {
+    /* 1. 폰트 강제 설정 */
+    font-family: 'Black Han Sans', sans-serif !important;
+
+    /* 2. 링크 기본 스타일 제거 */
+    text-decoration: none;
+    color: inherit;
+
+    /* 3. 추가 디자인 */
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+/* 마우스를 올렸을 때 살짝 커지는 효과 (선택 사항) */
+.register-title a:hover {
+    transform: scale(1.05);
 }
